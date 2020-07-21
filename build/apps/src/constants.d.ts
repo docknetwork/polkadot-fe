@@ -1,0 +1,8 @@
+export declare enum SideBarTransition {
+    COLLAPSED = "COLLAPSED",
+    EXPANDED = "EXPANDED",
+    EXPANDED_AND_MAXIMISED = "EXPANDED_AND_MAXIMISED",
+    MINIMISED_AND_EXPANDED = "MINIMISED_AND_EXPANDED"
+}
+export declare const SIDEBAR_MENU_THRESHOLD: number;
+export declare const SIDEBAR_TRANSITION_DURATION = 300;
