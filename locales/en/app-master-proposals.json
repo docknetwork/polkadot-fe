@@ -7,7 +7,7 @@
   "Proposal URL": "Proposal URL",
   "Proposal bytes as hex": "Proposal bytes as hex",
   "Proposal creation": "Proposal creation",
-  "Proposal hash": "Proposal hash",
+  "Proposal image (hash)": "Proposal image (hash)",
   "Proposal voting": "Proposal voting",
   "Select the account you wish to sign data with. The public/private keys must match that which created your DID. Go to the accounts page to add one.": "Select the account you wish to sign data with. The public/private keys must match that which created your DID. Go to the accounts page to add one.",
   "Share this URL for people to vote on your proposal": "Share this URL for people to vote on your proposal",
