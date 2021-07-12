@@ -20,7 +20,8 @@ import ApiSigner from '@polkadot/react-signer/signers/ApiSigner';
 import { WsProvider } from '@polkadot/rpc-provider';
 import { keyring } from '@polkadot/ui-keyring';
 import { settings } from '@polkadot/ui-settings';
-import { formatBalance, isTestChain } from '@polkadot/util';
+import { formatBalance, isTestChain, u8aToHex } from '@polkadot/util';
+import { decodeAddress } from '@polkadot/keyring';
 import { defaults as addressDefaults } from '@polkadot/util-crypto/address/defaults';
 
 import { poaRpcDefs, stakingRewardsRpcDefs } from '../../apps-config/src/api/spec/dock-rpc';
@@ -55,6 +56,9 @@ interface ChainData {
 export const DEFAULT_DECIMALS = registry.createType('u32', 6);
 export const DEFAULT_SS58 = registry.createType('u32', addressDefaults.prefix);
 export const DEFAULT_AUX = ['Aux1', 'Aux2', 'Aux3', 'Aux4', 'Aux5', 'Aux6', 'Aux7', 'Aux8', 'Aux9'];
+const ACCOUNT_PREFIX = 'account:';
+const accountRegex = new RegExp(`^${ACCOUNT_PREFIX}0x[0-9a-f]*`, '');
+const accountKey = (address: string): string => `${ACCOUNT_PREFIX}${toHex(address)}`;
 
 let api: ApiPromise;
 
@@ -149,13 +153,61 @@ async function loadOnReady (api: ApiPromise, injectedPromise: Promise<InjectedEx
   TokenUnit.setAbbr(tokenSymbol[0].toString());
 
   // finally load the keyring
-  isKeyringLoaded() || keyring.loadAll({
+  if (!isKeyringLoaded()) {
+    keyring.loadAll({
+      genesisHash: api.genesisHash,
+      isDevelopment,
+      ss58Format,
+      store,
+      type: isEthereum ? 'ethereum' : 'ed25519'
+    }, injectedAccounts);
+
+    // If current chain is PoS Mainnet, load PoA mainnet accounts as well.
+    if (api.genesisHash.toHex() === '0x6bfe24dca2a3be10f22212678ac13a6446ec764103c0f3471c71609eac384aae') {
+      let options = {
+        genesisHash: '0xf73467c6544aa68df2ee546b135f955c46b90fa627e9b5d7935f41061bb8a5a9',
+        isDevelopment,
+        ss58Format,
+        store,
+        type: isEthereum ? 'ethereum' : 'ed25519'
+      };
+
+      // At the end of `loadAll`, keyringOption.init is called but it cannot be called twice and causes an assertion error. Catch it
+      /* try {
+        keyring.loadAll(options, injectedAccounts);
+      } catch (e) {
+      } */
+
+      keyring._store.all((key, json) => {
+        if (options.filter ? options.filter(json) : true) {
+          try {
+            if (allowGenesis(json, options.genesisHash)) {
+              if (accountRegex.test(key)) {
+                loadAccount(keyring, json, key);
+              }
+            }
+          } catch (error) {// ignore
+          }
+        }
+      });
+
+      injectedAccounts.forEach(account => {
+        if (allowGenesis(account, options.genesisHash)) {
+          try {
+            loadInjected(keyring, account.address, account.meta);
+          } catch (error) {// ignore
+          }
+        }
+      });
+    }
+  }
+  /* isKeyringLoaded() || keyring.loadAll({
     genesisHash: api.genesisHash,
     isDevelopment,
     ss58Format,
     store,
     type: isEthereum ? 'ethereum' : 'ed25519'
-  }, injectedAccounts);
+  }, injectedAccounts); */
 
   const defaultSection = Object.keys(api.tx)[0];
   const defaultMethod = Object.keys(api.tx[defaultSection])[0];
@@ -175,6 +227,59 @@ async function loadOnReady (api: ApiPromise, injectedPromise: Promise<InjectedEx
     systemName,
     systemVersion
   };
+}
+
+function allowGenesis (json?: KeyringJson | { meta: KeyringJson$Meta } | null, genesisHash): boolean {
+  if (json && json.meta && genesisHash) {
+    const hashes: (string | null | undefined)[] = Object.values(chains).find((hashes): boolean =>
+      hashes.includes(genesisHash || '')
+    ) || [genesisHash];
+    if (json.meta.genesisHash) {
+      return hashes.includes(json.meta.genesisHash);
+    }
+  }
+}
+
+function loadInjected (keyring, address: string, meta: KeyringJson$Meta, type?: KeypairType): void {
+  const json = {
+    address,
+    meta: {
+      ...meta,
+      isInjected: true
+    }
+  };
+  const pair = keyring.keyring.addFromAddress(address, json.meta, null, type);
+
+  keyring.accounts.add(keyring._store, pair.address, json, pair.type);
+}
+
+function loadAccount (keyring, json: KeyringJson, key: string): void {
+  if (!json.meta.isTesting && (json as KeyringPair$Json).encoded) {
+    // FIXME Just for the transition period (ignoreChecksum)
+    const pair = keyring.keyring.addFromJson(json as KeyringPair$Json, true);
+
+    keyring.accounts.add(keyring._store, pair.address, json, pair.type);
+  }
+
+  const [, hexAddr] = key.split(':');
+
+  rewriteKey(keyring, json, key, hexAddr.trim(), accountKey);
+}
+
+function rewriteKey (keyring, json: KeyringJson, key: string, hexAddr: string, creator: (addr: string) => string): void {
+  if (hexAddr.substr(0, 2) === '0x') {
+    return;
+  }
+
+  keyring._store.remove(key);
+  keyring._store.set(creator(hexAddr), json);
+}
+
+function toHex (address: string): string {
+  return u8aToHex(
+    // When saving pre-checksum changes, ensure that we can decode
+    decodeAddress(address, true)
+  );
 }
 
 function Api ({ children, store, url }: Props): React.ReactElement<Props> | null {
