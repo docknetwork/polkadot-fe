@@ -47,7 +47,7 @@ const BOOL_OPTIONS = [
 
 function VanityApp ({ className = '', onStatusChange }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const { isEthereum } = useApi();
+  const { api, isEthereum } = useApi();
   const results = useRef<GeneratorResult[]>([]);
   const runningRef = useRef(false);
   const mountedRef = useIsMountedRef();
@@ -116,20 +116,15 @@ function VanityApp ({ className = '', onStatusChange }: Props): React.ReactEleme
             _checkMatches();
           }
 
-          const result = generator({ match, runs: 10, type, withCase, withHex: true });
-
-          result.found = result.found.map((item: any) => ({
-            ...item,
-            address: addressFromSeed(u8aToHex(item.seed), '', type),
-          }));
-
-          results.current.push(result);
+          results.current.push(
+            generator({ match, runs: 10, ss58Format: api.registry.chainSS58 || 0, type, withCase, withHex: true })
+          );
 
           _executeGeneration();
         }
       }, 0);
     },
-    [_checkMatches, match, mountedRef, runningRef, type, withCase]
+    [_checkMatches, api, match, mountedRef, runningRef, type, withCase]
   );
 
   const _onChangeMatch = useCallback(
@@ -194,7 +189,7 @@ function VanityApp ({ className = '', onStatusChange }: Props): React.ReactEleme
         <Input
           autoFocus
           className='medium'
-          help={t<string>('Type here what you would like your address to contain. This tool will generate the keys and show the associated addresses that best match your search. You can use "?" as a wildcard for a character.')}
+          help={t<string>('Type here what you would like your address to contain. This tool will generate the keys and show the associated addresses that best match your search. ')}
           isDisabled={isRunning}
           isError={!isMatchValid}
           label={t<string>('Search for')}

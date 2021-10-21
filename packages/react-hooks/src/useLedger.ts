@@ -7,7 +7,7 @@ import type { LedgerTypes } from '@polkadot/hw-ledger/types';
 import { useCallback, useMemo } from 'react';
 
 import { Ledger } from '@polkadot/hw-ledger';
-import networks from '@polkadot/networks';
+import { knownGenesis, knownLedger } from '@polkadot/networks/defaults';
 import uiSettings from '@polkadot/ui-settings';
 import { assert } from '@polkadot/util';
 
@@ -27,66 +27,75 @@ const EMPTY_STATE: StateBase = {
   isLedgerEnabled: false
 };
 
-// TODO: Temporary
-networks.push({
-  "decimals": [
-      6
-  ],
-  "displayName": "Dock PoS Testnet",
-  "genesisHash": [
-      "0x59d93e2ce42abb8aa52ca9a9e820233667104751f8f2980578a47a26a7235027"
-  ],
-  "hasLedgerSupport": true,
-  "network": "dock",
-  "prefix": 21,
-  "slip44": 594,
-  "standardAccount": "*25519",
-  "symbols": [
-      "DOCK"
-  ],
-  "website": "https://dock.io",
-  "icon": "substrate"
-});
-
-networks.push({
-  "decimals": [
-      6
-  ],
-  "displayName": "Dock PoS Mainnet",
-  "genesisHash": [
-      "0x6bfe24dca2a3be10f22212678ac13a6446ec764103c0f3471c71609eac384aae"
-  ],
-  "hasLedgerSupport": true,
-  "network": "dock",
-  "prefix": 22,
-  "slip44": 594,
-  "standardAccount": "*25519",
-  "symbols": [
-      "DOCK"
-  ],
-  "website": "https://dock.io",
-  "icon": "substrate"
-});
+// // TODO: Temporary
+// networks.push({
+//   "decimals": [
+//       6
+//   ],
+//   "displayName": "Dock PoS Testnet",
+//   "genesisHash": [
+//       "0x59d93e2ce42abb8aa52ca9a9e820233667104751f8f2980578a47a26a7235027"
+//   ],
+//   "hasLedgerSupport": true,
+//   "network": "dock",
+//   "prefix": 21,
+//   "slip44": 594,
+//   "standardAccount": "*25519",
+//   "symbols": [
+//       "DOCK"
+//   ],
+//   "website": "https://dock.io",
+//   "icon": "substrate"
+// });
+//
+// networks.push({
+//   "decimals": [
+//       6
+//   ],
+//   "displayName": "Dock PoS Mainnet",
+//   "genesisHash": [
+//       "0x6bfe24dca2a3be10f22212678ac13a6446ec764103c0f3471c71609eac384aae"
+//   ],
+//   "hasLedgerSupport": true,
+//   "network": "dock",
+//   "prefix": 22,
+//   "slip44": 594,
+//   "standardAccount": "*25519",
+//   "symbols": [
+//       "DOCK"
+//   ],
+//   "website": "https://dock.io",
+//   "icon": "substrate"
+// });
 
 const hasWebUsb = !!(window as unknown as { USB?: unknown }).USB;
-const ledgerChains = networks.filter((n) => !!n.hasLedgerSupport);
+const ledgerChains = Object
+  .keys(knownGenesis)
+  .filter((n) => knownLedger[n]);
+const ledgerHashes = ledgerChains.reduce<string[]>((all, n) => [...all, ...knownGenesis[n]], []);
 let ledger: Ledger | null = null;
+let ledgerType: LedgerTypes | null = null;
 
 function retrieveLedger (api: ApiPromise): Ledger {
-  if (!ledger) {
+  const currType = uiSettings.ledgerConn as LedgerTypes;
+
+  if (!ledger || ledgerType !== currType) {
     const genesisHex = api.genesisHash.toHex();
-    const def = ledgerChains.find(({ genesisHash }) => genesisHash[0] === genesisHex);
+    const network = ledgerChains.find((network) => knownGenesis[network].includes(genesisHex));
 
-    assert(def, `Unable to find supported chain for ${genesisHex}`);
+    assert(network, `Unable to find a known Ledger config for genesisHash ${genesisHex}`);
 
-    ledger = new Ledger(uiSettings.ledgerConn as LedgerTypes, def.network);
+    ledger = new Ledger(currType, network);
+    ledgerType = currType;
   }
 
   return ledger;
 }
 
 function getState (api: ApiPromise): StateBase {
-  const isLedgerCapable = hasWebUsb && ledgerChains.map(({ genesisHash }) => genesisHash[0]).includes(api.genesisHash.toHex());
+
+  const isLedgerCapable = hasWebUsb && ledgerHashes.includes(api.genesisHash.toHex());
+
   return {
     isLedgerCapable,
     isLedgerEnabled: isLedgerCapable && uiSettings.ledgerConn !== 'none'

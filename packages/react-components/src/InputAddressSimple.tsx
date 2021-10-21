@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import IdentityIcon from './IdentityIcon';
 import Input from './Input';
-import addressToAddress from './util/toAddress';
+import { toAddress } from './util';
 
 interface Props {
   autoFocus?: boolean;
@@ -27,7 +27,7 @@ function InputAddressSimple ({ autoFocus, children, className = '', defaultValue
 
   const _onChange = useCallback(
     (_address: string): void => {
-      const address = addressToAddress(_address) || null;
+      const address = toAddress(_address) || null;
 
       setAddress(address);
 

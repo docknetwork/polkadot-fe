@@ -12,7 +12,8 @@ export default function create (t: TFunction): Route {
     display: {
       needsApi: [
         'query.technicalCommittee.members'
-      ]
+      ],
+      needsApiInstances: true
     },
     group: 'governance',
     icon: 'microchip',

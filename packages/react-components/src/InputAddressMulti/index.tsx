@@ -139,7 +139,7 @@ export default React.memo(styled(InputAddressMulti)(({ theme }: ThemeProps) => `
       .ui--InputAddressMulti-items {
         padding: 0.5rem 0;
         background: var(--bg-input);
-        border: 1px solid rgba(34,36,38,0.15);
+        border: 1px solid var(--border-input);
         border-radius: 0.286rem 0.286rem;
         flex: 1;
         overflow-y: auto;

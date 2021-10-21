@@ -87,9 +87,9 @@ async function signAndSend (queueSetTxStatus: QueueTxMessageSetStatus, currentIt
     }));
   } catch (error) {
     console.error('signAndSend: error:', error);
-    queueSetTxStatus(currentItem.id, 'error', {}, error);
+    queueSetTxStatus(currentItem.id, 'error', {}, error as Error);
 
-    currentItem.txFailedCb && currentItem.txFailedCb(error);
+    currentItem.txFailedCb && currentItem.txFailedCb(error as Error);
   }
 }
 
@@ -102,9 +102,9 @@ async function signAsync (queueSetTxStatus: QueueTxMessageSetStatus, { id, txFai
     return tx.toJSON();
   } catch (error) {
     console.error('signAsync: error:', error);
-    queueSetTxStatus(id, 'error', undefined, error);
+    queueSetTxStatus(id, 'error', undefined, error as Error);
 
-    txFailedCb(error);
+    txFailedCb(error as Error);
   }
 
   return null;
@@ -226,17 +226,6 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
     [qrResolve]
   );
 
-  const _onCancel = useCallback(
-    (): void => {
-      const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem;
-
-      queueSetTxStatus(id, 'cancelled');
-      signerCb(id, null);
-      txFailedCb(null);
-    },
-    [currentItem, queueSetTxStatus]
-  );
-
   const _unlock = useCallback(
     async (): Promise<boolean> => {
       let passwordError: string | null = null;
@@ -253,7 +242,7 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
           } catch (error) {
             console.error(error);
 
-            passwordError = t<string>('Unable to connect the the Ledger. {{error}}', { replace: { error: (error as Error).message } });
+            passwordError = t<string>('Unable to connect to the Ledger, ensure support is enabled in settings and no other app is using it. {{error}}', { replace: { error: (error as Error).message } });
           }
         }
       }
@@ -361,6 +350,7 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
             : (
               <>
                 <Transaction
+                  accountId={senderInfo.signAddress}
                   currentItem={currentItem}
                   onError={toggleRenderError}
                 />
@@ -408,7 +398,7 @@ function TxSigned ({ className, currentItem, requestAddress }: Props): React.Rea
           }
         </ErrorBoundary>
       </Modal.Content>
-      <Modal.Actions onCancel={_onCancel}>
+      <Modal.Actions>
         <Button
           icon={
             flags.isQr

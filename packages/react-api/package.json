@@ -1,13 +1,16 @@
 {
   "name": "@polkadot/react-api",
   "private": true,
-  "version": "0.86.3-56",
+  "type": "module",
+  "version": "0.97.2-8",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
-    "@polkadot/api": "^4.4.2-6",
-    "@polkadot/extension-dapp": "^0.37.3-12",
-    "@polkadot/x-rxjs": "^6.0.5",
-    "fflate": "^0.6.9"
+    "@babel/runtime": "^7.15.4",
+    "@polkadot/api": "^6.4.3-3",
+    "@polkadot/extension-compat-metamask": "^0.40.4-5",
+    "@polkadot/extension-dapp": "^0.40.4-5",
+    "@substrate/connect": "^0.4.6",
+    "fflate": "^0.7.1",
+    "rxjs": "^7.4.0"
   }
 }

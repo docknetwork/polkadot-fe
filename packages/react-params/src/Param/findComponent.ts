@@ -16,6 +16,7 @@ import Bytes from './Bytes';
 import Call from './Call';
 import Code from './Code';
 import DispatchError from './DispatchError';
+import DispatchResult from './DispatchResult';
 import Enum from './Enum';
 import Hash160 from './Hash160';
 import Hash256 from './Hash256';
@@ -52,6 +53,7 @@ const componentDef: TypeToComponent[] = [
   { c: Call, t: ['Call', 'Proposal'] },
   { c: Code, t: ['Code'] },
   { c: DispatchError, t: ['DispatchError'] },
+  { c: DispatchResult, t: ['DispatchResult'] },
   { c: Raw, t: ['Raw', 'Keys'] },
   { c: Enum, t: ['Enum'] },
   { c: Hash256, t: ['Hash', 'H256'] },
@@ -83,7 +85,7 @@ const components: ComponentMap = componentDef.reduce((components, { c, t }): Com
 
 const warnList: string[] = [];
 
-function fromDef ({ displayName, info, sub, type }: TypeDef): string {
+function fromDef ({ displayName, info, lookupName, sub, type }: TypeDef): string {
   if (displayName && SPECIAL_TYPES.includes(displayName)) {
     return displayName;
   }
@@ -125,7 +127,7 @@ function fromDef ({ displayName, info, sub, type }: TypeDef): string {
       return 'VecFixed';
 
     default:
-      return type;
+      return lookupName || type;
   }
 }
 
@@ -142,13 +144,13 @@ export default function findComponent (registry: Registry, def: TypeDef, overrid
       const instance = registry.createType(type as 'u32');
       const raw = getTypeDef(instance.toRawType());
 
-      Component = findOne(raw.type);
+      Component = findOne(raw.lookupName || raw.type);
 
       if (Component) {
         return Component;
       } else if (isBn(instance)) {
         return Amount;
-      } else if ([TypeDefInfo.Enum, TypeDefInfo.Struct, TypeDefInfo.Tuple].includes(raw.info)) {
+      } else if ([TypeDefInfo.Enum, TypeDefInfo.Struct, TypeDefInfo.Tuple, TypeDefInfo.Vec].includes(raw.info)) {
         return findComponent(registry, raw, overrides);
       } else if (raw.info === TypeDefInfo.VecFixed && (raw.sub as TypeDef).type !== 'u8') {
         return findComponent(registry, raw, overrides);
@@ -161,7 +163,7 @@ export default function findComponent (registry: Registry, def: TypeDef, overrid
     if (!warnList.includes(type)) {
       warnList.push(type);
       error && console.error(`params: findComponent: ${error}`);
-      console.info(`params: findComponent: No pre-defined component for type ${type} from ${JSON.stringify(def)}, using defaults`);
+      console.info(`params: findComponent: No pre-defined component for type ${type} from ${TypeDefInfo[def.info]}: ${JSON.stringify(def)}`);
     }
   }
 

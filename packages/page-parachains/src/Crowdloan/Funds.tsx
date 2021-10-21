@@ -7,8 +7,8 @@ import type { Campaign, LeasePeriod } from '../types';
 
 import React, { useMemo, useRef } from 'react';
 
-import { Table } from '@polkadot/react-components';
-import { useIsParasLinked } from '@polkadot/react-hooks';
+import { MarkWarning, Table } from '@polkadot/react-components';
+import { useBestHash, useIsParasLinked } from '@polkadot/react-hooks';
 
 import { useTranslation } from '../translate';
 import Fund from './Fund';
@@ -50,6 +50,7 @@ function sortList (hasLinksMap: Record<string, boolean>, list?: Campaign[] | nul
 
 function Funds ({ bestNumber, className, leasePeriod, value }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
+  const bestHash = useBestHash();
   const [active, ended, allIds] = useMemo(
     () => extractLists(value, leasePeriod),
     [leasePeriod, value]
@@ -64,28 +65,30 @@ function Funds ({ bestNumber, className, leasePeriod, value }: Props): React.Rea
     [t('ongoing'), 'start', 2],
     [undefined, 'media--800'],
     [undefined, 'media--1400'],
-    [t('ending'), 'media--1000'],
+    [t('ending'), 'media--1200'],
     [t('leases')],
     [t('raised')],
-    [t('unique')],
-    [undefined, 'badge'],
-    [undefined, 'media--1300']
+    [t('count'), 'media--1100'],
+    [undefined, 'media--1000']
   ]);
 
   const headedEndedRef = useRef([
     [t('completed'), 'start', 2],
     [undefined, 'media--800'],
     [undefined, 'media--1400'],
-    [t('ending'), 'media--1000'],
+    [t('ending'), 'media--1200'],
     [t('leases')],
     [t('raised')],
-    [t('unique')],
-    [undefined, 'badge'],
-    [undefined, 'media--1300']
+    [t('count'), 'media--1100'],
+    [undefined, 'media--1000']
   ]);
 
   return (
     <>
+      <MarkWarning
+        className='warning centered'
+        content={t<string>('Do not transfer any funds directly to a specific account that is associated with a loan or a team. Use the "Contribute" action to record the contribution on-chain using the crowdloan runtime module. When the fund is dissolved, after either the parachain lease expires or the loan ending without winning, the full value will be returned to your account by the runtime. Funds sent directly to an account, without using the crowdloan functionality, may not be returned by the receiving account.')}
+      />
       <Table
         className={className}
         empty={value && activeSorted && t<string>('No active campaigns found')}
@@ -93,6 +96,7 @@ function Funds ({ bestNumber, className, leasePeriod, value }: Props): React.Rea
       >
         {activeSorted?.map((fund) => (
           <Fund
+            bestHash={bestHash}
             bestNumber={bestNumber}
             isOngoing
             key={fund.accountId}

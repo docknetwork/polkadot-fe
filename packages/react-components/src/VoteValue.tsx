@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type BN from 'bn.js';
 import type { DeriveBalancesAll } from '@polkadot/api-derive/types';
 
-import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useApi, useCall } from '@polkadot/react-hooks';
@@ -44,7 +44,7 @@ function getValues (selectedId: string | null | undefined, isCouncil: boolean | 
 function VoteValue ({ accountId, autoFocus, isCouncil, onChange }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { api } = useApi();
-  const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [accountId]);
+  const allBalances = useCall<DeriveBalancesAll>(api.derive.balances?.all, [accountId]);
   const [{ maxValue, selectedId, value }, setValue] = useState<ValueState>({ maxValue: BN_ZERO, value: BN_ZERO });
 
   useEffect((): void => {
@@ -80,7 +80,7 @@ function VoteValue ({ accountId, autoFocus, isCouncil, onChange }: Props): React
           ? undefined
           : value
       }
-      help={t<string>('The amount that is associated with this vote. This value is is locked for the duration of the vote.')}
+      help={t<string>('The amount that is associated with this vote. This value is locked for the duration of the vote.')}
       isDisabled={isDisabled}
       isZeroable
       label={t<string>('vote value')}
