@@ -9,9 +9,6 @@ import spec from './spec';
 export * from './constants';
 export * from './params';
 
-export * from './constants';
-export * from './params';
-
 export function getChainTypes (_specName: string, chainName: string): Record<string, string | Record<string, unknown>> {
   return {
     ...(typesChain[chainName as keyof typeof typesChain] || {})
