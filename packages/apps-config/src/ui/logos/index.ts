@@ -481,8 +481,6 @@ export const namedLogos: Record<string, unknown> = {
   'Crust Maxwell': nodeCrustMaxwell,
   darwinia: nodeDarwinia,
   datahighway: nodeDataHighway,
-  'dock-mainnet': nodeDockMainnet,
-  'dock-testnet': nodeDockTestnet,
   'dock-pos-mainnet': nodeDockMainnet,
   'dock-pos-testnet': nodeDockTestnet,
   dotmog: nodeDotMog,
