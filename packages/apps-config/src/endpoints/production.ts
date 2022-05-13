@@ -1,8 +1,8 @@
-// Copyright 2017-2021 @polkadot/apps-config authors & contributors
+// Copyright 2017-2022 @polkadot/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { TFunction } from 'i18next';
-import type { LinkOption } from '../settings/types';
+import type { TFunction } from '../types';
+import type { LinkOption } from './types';
 
 import { expandEndpoints } from './util';
 
@@ -14,7 +14,8 @@ import { expandEndpoints } from './util';
 //   text: The text to display on the dropdown
 //   value: The actual hosted secure websocket endpoint
 
-export function createProduction (t: TFunction): LinkOption[] {
+// alphabetical based on chain name
+export function createProduction (t: TFunction, firstOnly: boolean, withSort: boolean): LinkOption[] {
   return expandEndpoints(t, [
     {
       info: 'dock-pos-mainnet',

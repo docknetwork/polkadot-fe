@@ -206,7 +206,7 @@ function extractInfo (api: ApiPromise, allAccounts: string[], electedDerive: Der
 
   // Check if validator is eligible for nomination by checking if validator has explicitly denied nominees
   // or if existing nominee count for that validator exceeds the number that will be rewarded.
-  const checkEligibility = ({ isBlocking, numNominators }) => {
+  const checkEligibility = ({ isBlocking, numNominators }: any) => {
     return !isBlocking && (numNominators < api.consts.staking.maxNominatorRewardedPerValidator);
   };
 
@@ -262,7 +262,7 @@ export default function useSortedTargets (favorites: string[], withLedger: boole
   }
 
   // Total yearly emission
-  const yearly = useCall<BN>(totalIssuance && totalStaked && api.rpc.staking_rewards.yearlyEmission, [totalStaked?.toString(), totalIssuance?.toString()]);
+  const yearly = useCall<BN>(totalIssuance && totalStaked && (api.rpc as any).staking_rewards.yearlyEmission, [totalStaked?.toString(), totalIssuance?.toString()]);
 
   const partial = useMemo(
     () => electedInfo && lastEraInfo && totalIssuance && waitingInfo && yearly

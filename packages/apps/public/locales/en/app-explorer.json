@@ -8,41 +8,68 @@
   "Events": "Events",
   "Extrinsics": "Extrinsics",
   "Forks": "Forks",
+<<<<<<< HEAD
   "Master Members": "Master Members",
   "No DIDs available": "No DIDs available",
   "No accounts available": "No accounts available",
+=======
+  "Latency": "Latency",
+>>>>>>> origin2/master
   "No blocks available": "No blocks available",
   "No data available": "No data available",
   "No epochs available": "No epochs available",
   "No events available": "No events available",
+  "No extrinsics available": "No extrinsics available",
   "No justifications available": "No justifications available",
   "No logs available": "No logs available",
+<<<<<<< HEAD
   "No pending extrinsics are in the queue": "No pending extrinsics are in the queue",
   "No transfers available": "No transfers available",
+=======
+>>>>>>> origin2/master
   "Node info": "Node info",
   "Transfers": "Transfers",
   "Unable to retrieve the specified block details. {{error}}": "Unable to retrieve the specified block details. {{error}}",
+<<<<<<< HEAD
   "Validators": "Validators",
   "active accounts": "active accounts",
   "amount": "amount",
   "balances": "balances",
+=======
+  "average": "average",
+  "avg": "avg",
+>>>>>>> origin2/master
   "best": "best",
   "best #": "best #",
   "best hash": "best hash",
   "block hash": "block hash",
   "block hash or number to query": "block hash or number to query",
+  "block weight": "block weight",
   "blocks": "blocks",
+  "blocksize (last {{num}} blocks)": "blocksize (last {{num}} blocks)",
+  "blocktime": "blocktime",
+  "blocktimes (last {{num}} blocks)": "blocktimes (last {{num}} blocks)",
+  "bytes": "bytes",
   "connected peers": "connected peers",
+  "deposits": "deposits",
   "elapsed": "elapsed",
   "ending slot": "ending slot",
   "epoch": "epoch",
   "epochs": "epochs",
   "era": "era",
+  "event count": "event count",
   "events": "events",
+<<<<<<< HEAD
   "expected ending slot": "expected ending slot",
   "extrinsic index": "extrinsic index",
   "extrinsics": "extrinsics",
   "extrinsics root": "extrinsics root",
+=======
+  "events (last {{num}} blocks)": "events (last {{num}} blocks)",
+  "extrinsic count": "extrinsic count",
+  "extrinsics": "extrinsics",
+  "extrinsics (last {{num}} blocks)": "extrinsics (last {{num}} blocks)",
+>>>>>>> origin2/master
   "finalized": "finalized",
   "forks": "forks",
   "from": "from",
@@ -50,9 +77,16 @@
   "immortal": "immortal",
   "index": "index",
   "justifications": "justifications",
+  "last": "last",
   "last block": "last block",
+<<<<<<< HEAD
   "locked rewards": "locked rewards",
+=======
+  "last events": "last events",
+>>>>>>> origin2/master
   "logs": "logs",
+  "max": "max",
+  "min": "min",
   "mortal, valid from #{{startAt}} to #{{endsAt}}": "mortal, valid from #{{startAt}} to #{{endsAt}}",
   "next page": "next page",
   "no": "no",
@@ -74,7 +108,9 @@
   "signer": "signer",
   "starting slot": "starting slot",
   "state": "state",
+  "std dev": "std dev",
   "syncing": "syncing",
+  "system": "system",
   "system events": "system events",
   "tags": "tags",
   "target": "target",
@@ -83,6 +119,7 @@
   "total issuance": "total issuance",
   "total locked rewards": "total locked rewards",
   "total peers": "total peers",
+<<<<<<< HEAD
   "total unlocked rewards": "total unlocked rewards",
   "transactions": "transactions",
   "treasury balance": "treasury balance",
@@ -92,5 +129,9 @@
   "validator count": "validator count",
   "validator rewards": "validator rewards",
   "validators": "validators",
+=======
+  "transfers": "transfers",
+  "weight": "weight",
+>>>>>>> origin2/master
   "yes": "yes"
 }

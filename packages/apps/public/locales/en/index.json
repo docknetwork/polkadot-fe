@@ -8,13 +8,17 @@
   "app-claims.json",
   "app-contracts.json",
   "app-council.json",
-  "app-crowdloan.json",
   "app-democracy.json",
   "app-explorer.json",
   "app-extrinsics.json",
+  "app-files.json",
   "app-gilt.json",
   "app-js.json",
+<<<<<<< HEAD
   "app-master-proposals.json",
+=======
+  "app-nfts.json",
+>>>>>>> origin2/master
   "app-parachains.json",
   "app-poll.json",
   "app-rpc.json",

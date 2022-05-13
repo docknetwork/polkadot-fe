@@ -1,38 +1,50 @@
-// Copyright 2017-2021 @polkadot/apps-config authors & contributors
+// Copyright 2017-2022 @polkadot/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { TFunction } from 'i18next';
-import type { LinkOption } from '../settings/types';
+import type { TFunction } from '../types';
+import type { LinkOption } from './types';
 
+import { defaultT } from '../util';
 import { createCustom, createDev, createOwn } from './development';
-import { createProduction } from './production';
+import { createKusamaRelay, createPolkadotRelay } from './productionRelays';
 import { createTesting } from './testing';
 
 export { CUSTOM_ENDPOINT_KEY } from './development';
 
-export function createWsEndpoints (t: TFunction): LinkOption[] {
+export function createWsEndpoints (t: TFunction = defaultT, firstOnly = false, withSort = true): LinkOption[] {
   return [
     ...createCustom(t),
     {
       isDisabled: false,
       isHeader: true,
-      text: t('rpc.header.live', 'Live networks', { ns: 'apps-config' }),
+      isSpaced: true,
+      text: t('rpc.header.polkadot.relay', 'Polkadot & parachains', { ns: 'apps-config' }),
       textBy: '',
       value: ''
     },
-    ...createProduction(t),
+    ...createPolkadotRelay(t, firstOnly, withSort),
     {
       isDisabled: false,
       isHeader: true,
-      text: t('rpc.header.test', 'Test networks', { ns: 'apps-config' }),
+      text: t('rpc.header.kusama.relay', 'Kusama & parachains', { ns: 'apps-config' }),
       textBy: '',
       value: ''
     },
-    ...createTesting(t),
+    ...createKusamaRelay(t, firstOnly, withSort),
+    {
+      isDisabled: false,
+      isHeader: true,
+      isSpaced: true,
+      text: t('rpc.header.westend.relay', 'Test Westend & parachains', { ns: 'apps-config' }),
+      textBy: '',
+      value: ''
+    },
+    ...createTesting(t, firstOnly, withSort),
     {
       isDevelopment: true,
       isDisabled: false,
       isHeader: true,
+      isSpaced: true,
       text: t('rpc.header.dev', 'Development', { ns: 'apps-config' }),
       textBy: '',
       value: ''

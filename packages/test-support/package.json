@@ -1,15 +1,24 @@
 {
+  "bugs": "https://github.com/polkadot-js/apps/issues",
+  "homepage": "https://github.com/polkadot-js/apps/tree/master/packages/test-support#readme",
+  "license": "Apache-2.0",
   "name": "@polkadot/test-support",
   "private": true,
-  "version": "0.86.3-56",
-  "license": "Apache-2.0",
+  "repository": {
+    "directory": "packages/test-support",
+    "type": "git",
+    "url": "https://github.com/polkadot-js/apps.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.112.2-59",
   "dependencies": {
-    "@testing-library/react": "^11.2.6",
-    "testcontainers": "^6.4.2"
+    "@testing-library/react": "^13.1.1",
+    "testcontainers": "^8.7.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0"
+    "@polkadot/types-support": "^8.2.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "tsconfig-paths": "^3.14.1"
   }
 }

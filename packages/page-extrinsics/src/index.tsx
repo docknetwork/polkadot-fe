@@ -1,23 +1,33 @@
-// Copyright 2017-2021 @polkadot/app-extrinsics authors & contributors
+// Copyright 2017-2022 @polkadot/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { AppProps as Props } from '@polkadot/react-components/types';
+import type { DecodedExtrinsic } from './types';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { Route, Switch } from 'react-router';
 
 import { Tabs } from '@polkadot/react-components';
 
-import Selection from './Selection';
+import Decoder from './Decoder';
+import Submission from './Submission';
 import { useTranslation } from './translate';
 
 function ExtrinsicsApp ({ basePath }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
+  const [decoded, setDecoded] = useState<DecodedExtrinsic | null>(null);
 
-  const itemsRef = useRef([{
-    isRoot: true,
-    name: 'create',
-    text: t<string>('Submission')
-  }]);
+  const itemsRef = useRef([
+    {
+      isRoot: true,
+      name: 'create',
+      text: t<string>('Submission')
+    },
+    {
+      name: 'decode',
+      text: t<string>('Decode')
+    }
+  ]);
 
   return (
     <main className='extrinsics--App'>
@@ -25,7 +35,14 @@ function ExtrinsicsApp ({ basePath }: Props): React.ReactElement<Props> {
         basePath={basePath}
         items={itemsRef.current}
       />
-      <Selection />
+      <Switch>
+        <Route path={`${basePath}/decode`}>
+          <Decoder setLast={setDecoded} />
+        </Route>
+        <Route>
+          <Submission defaultValue={decoded} />
+        </Route>
+      </Switch>
     </main>
   );
 }
