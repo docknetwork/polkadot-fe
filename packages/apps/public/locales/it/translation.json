@@ -309,14 +309,11 @@
   "I have saved my mnemonic seed safely": "Ho salvato la mnemonic seed in un luogo sicuro",
   "I'm Online": "Sono Online",
   "If the delegated account is currently voting in a referendum, the delegating vote and conviction will be added.": "Se l'account delegato sta votando un referendum, vi sarà aggiunto anche il voto (e moltiplicatore usato) trasmesso da ogni account delegante.",
-<<<<<<< HEAD
-  "If the recipient account is new, the balance needs to be more than the minimum balance. Likewise if the sending account balance drops below the same value, the account will be removed from the state.": "Se l'account destinatario è nuovo, il suo saldo necessita di essere maggiore della soglia minima. Allo stesso modo se il saldo del mittente scende sotto lo stesso valore, esso sarà reso inattivo.",
-=======
   "If the motion is approved, Curator's deposit will be slashed and Curator will be unassigned. Bounty will return to the Funded state.": "Se la mozione è approvata, il deposito del Curatore sarà slashato e il ruolo non sarà assegnato. Il bounty sarà riclassificato come finanziato",
   "If the motion is approved, the current Curator will be unassigned and the Bounty will return to the Funded state.": "Se la mozione è approvata, il Curatore corrente sarà rimosso e il bounty riclassificato come finanziato",
   "If the recipient account is new, the balance needs to be more than the existential deposit on the recipient chain.": "Se l'account destinatario è nuovo, il saldo deve essere maggiore del deposito sulla chain destinataria",
   "If the recipient account is new, the balance needs to be more than the existential deposit. Likewise if the sending account balance drops below the same value, the account will be removed from the state.": "Se l'account destinatario è nuovo, il suo saldo necessita di essere maggiore della soglia minima. Allo stesso modo se il saldo del mittente scende sotto lo stesso valore, esso sarà reso inattivo.",
->>>>>>> origin2/master
+  "If the recipient account is new, the balance needs to be more than the minimum balance. Likewise if the sending account balance drops below the same value, the account will be removed from the state.": "Se l'account destinatario è nuovo, il suo saldo necessita di essere maggiore della soglia minima. Allo stesso modo se il saldo del mittente scende sotto lo stesso valore, esso sarà reso inattivo.",
   "If this proposal is passed, the changes will be applied via dispatch and the deposit returned.": "Se questa proposta passa, i cambiamenti saranno implementati e i depositi resituiti",
   "If you add several proxy accounts for the same proxy type (e.g 2 accounts set as proxy for Governance), then any of those 2 accounts will be able to perfom governance actions on behalf of the proxied account": "Se aggiungi diversi account proxy dello stesso tipo (ad esempio 2 account utilizzati come proxy per la Democrazia), allora essi saranno in grado di performare azioni di governance per conto dell'account proxato",
   "If you are moving accounts between applications, ensure that you use the correct type.": "Se stai muovendo gli accounts attraverso delle applicazioni, assicurati di usare quelli adatti",
@@ -930,12 +927,9 @@
   "The maximum amount of gas to use for this contract call. If the call requires more, it will fail.": "La quantità massima di gas da utilizzare per questo richiamo di contratto. Se il richiamo ne richiede di più, non funzionerà.",
   "The maximum amount you can delegate is the amount of funds available on the delegating account.": "La massima quantità che puoi delegare è pari al totale dei fondi disponibili sull'account delegante.",
   "The message to send to this contract. Parameters are adjusted based on the ABI provided.": "Il messaggio da inviare a questo contratto. I parametri sono regolati in base all'ABI fornito.",
-<<<<<<< HEAD
-  "The minimum amount that an account should have to be deemed active. This is same as existential deposit in Polkadot": "Il saldo minimo da possedere sull'indirizzo per mantenere un account attivo",
-=======
   "The minimum amount that an account should have to be deemed active": "Il saldo minimo da possedere sull'indirizzo per mantenere un account attivo",
+  "The minimum amount that an account should have to be deemed active. This is same as existential deposit in Polkadot": "Il saldo minimo da possedere sull'indirizzo per mantenere un account attivo",
   "The minimum amount that is allowed as a bid": "L'importo minimo limite per un offerta",
->>>>>>> origin2/master
   "The minimum amount that will be bonded": "La minima quantità di token che sarà vincolata",
   "The minimum balance allowed for the asset.": "Il minimo saldo richiesto per l'asset",
   "The minimum balance for the asset. This is specified in the units and decimals as requested.": "Il minimo saldo per questo asset. E' specificato in unità e decimali come richiesto",
@@ -1435,12 +1429,9 @@
   "exclude option": "escludere l'opzione",
   "exec": "exec",
   "execute": "eseguire",
-<<<<<<< HEAD
-=======
   "existential deposit": "deposito esistente",
   "existing/active nominators": "nominatori attivi",
   "extend expiry": "estensione scadenza",
->>>>>>> origin2/master
   "external": "esterno",
   "extrinsic count": "conteggio extrinsic",
   "extrinsic hash": "extrinsic hash",
@@ -1536,14 +1527,10 @@
   "maximum lock periods": "limite massimo di vincolo",
   "members": "membri",
   "message to send": "messaggio da inviare",
-<<<<<<< HEAD
-  "minimum balance": "soglia di saldo minimo",
-=======
   "min nominated": "min nominati",
   "min nominated / threshold": "min nominati / soglia",
   "minimum allowed": "minimo concesso",
   "minimum balance": "saldo minimo",
->>>>>>> origin2/master
   "minimum bond": "vincolo minimo",
   "minimum deposit": "deposito minimo",
   "minimum freeze amount": "",

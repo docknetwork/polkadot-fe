@@ -95,6 +95,7 @@
   "Network": "",
   "Never execute JS snippets from untrusted sources.": "",
   "Next session": "",
+  "No": "",
   "No change": "",
   "No change from the original 2017 sale definitions; will mean a total of 10 million DOT from genesis.": "",
   "No discretionary lock-voting is in place; all DOT used to vote counts the same.": "",
@@ -210,6 +211,7 @@
   "Warning: we did not find any attest statement for {{chain}}": "",
   "With the keep-alive option set, the account is protected against removal due to low balances.": "",
   "Within the context of a single bag, nodes are not sorted by their stake, but instead placed in insertion order. In other words, the most recently inserted node will be the last node in the bag, regardless of stake. Events like staking rewards or slashes do not automatically put you in a different bag. The bags-list pallet comes with an important permissionless extrinsic: rebag. This allows anyone to specify another account that is in the wrong bag, and place it in the correct one.": "",
+  "Yes": "",
   "Yes, allow nominations": "",
   "You need to sign an attestation for the following account:": "",
   "You need to sign an attestation for the following accounts:": "",
@@ -284,15 +286,13 @@
   "finder": "",
   "first": "",
   "freezer": "",
-<<<<<<< HEAD
   "from": "",
+  "frozen": "",
   "funds": "",
   "genesis": "",
-=======
-  "frozen": "",
->>>>>>> origin2/master
   "hash": "",
   "head": "",
+  "heads": "",
   "https://example.com": "",
   "id": "",
   "in/out": "",
@@ -329,6 +329,7 @@
   "own": "",
   "own stake": "",
   "owner": "",
+  "parachain": "",
   "parachains": "",
   "parathreads": "",
   "parent": "",
@@ -342,11 +343,8 @@
   "points": "",
   "pools": "",
   "preimage {{hash}}": "",
-<<<<<<< HEAD
   "produced blocks": "",
   "projection": "",
-=======
->>>>>>> origin2/master
   "proposals": "",
   "proposed by council": "",
   "proposed by public": "",
@@ -380,11 +378,8 @@
   "timeout": "",
   "tip": "",
   "tips": "",
-<<<<<<< HEAD
   "title": "",
   "to": "",
-=======
->>>>>>> origin2/master
   "total": "",
   "total emission": "",
   "transactions": "",
@@ -392,7 +387,6 @@
   "turnout": "",
   "type": "",
   "unapplied": "",
-<<<<<<< HEAD
   "unique": "",
   "unlocked rewards": "",
   "until block": "",
@@ -400,9 +394,6 @@
   "upgrade": "",
   "validator count": "",
   "validator rewards": "",
-=======
-  "until block": "",
->>>>>>> origin2/master
   "validator {{index}}": "",
   "validators": "",
   "value": "",
@@ -410,14 +401,11 @@
   "voted on": "",
   "votes": "",
   "voting end": "",
-<<<<<<< HEAD
   "waiting": "",
   "watermark": "",
+  "weight": "",
   "winners": "",
   "winning": "",
-=======
-  "weight": "",
->>>>>>> origin2/master
   "yes": "",
   "yesterday": "",
   "{{balance}} voted": "",

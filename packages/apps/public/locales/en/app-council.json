@@ -3,11 +3,8 @@
   "Cancel slashes": "Cancel slashes",
   "Close": "Close",
   "Close proposal": "Close proposal",
-<<<<<<< HEAD
   "Council overview": "Council overview",
   "Council prime member, default voting": "Council prime member, default voting",
-=======
->>>>>>> origin2/master
   "Current prime member, default voting": "Current prime member, default voting",
   "In calculating the election outcome, this prioritized vote ordering will be used to determine the final score for the candidates.": "In calculating the election outcome, this prioritized vote ordering will be used to determine the final score for the candidates.",
   "Motions": "Motions",
@@ -77,6 +74,7 @@
   "propose from account": "propose from account",
   "runners up": "runners up",
   "seats": "seats",
+  "sending account": "sending account",
   "term progress": "term progress",
   "the era to cancel for": "the era to cancel for",
   "threshold": "threshold",

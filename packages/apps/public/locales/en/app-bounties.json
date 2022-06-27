@@ -34,11 +34,8 @@
   "How much should be paid out for completed Bounty. Upon funding, the amount will be reserved in treasury.": "How much should be paid out for completed Bounty. Upon funding, the amount will be reserved in treasury.",
   "If the motion is approved, Curator's deposit will be slashed and Curator will be unassigned. Bounty will return to the Funded state.": "If the motion is approved, Curator's deposit will be slashed and Curator will be unassigned. Bounty will return to the Funded state.",
   "If the motion is approved, the current Curator will be unassigned and the Bounty will return to the Funded state.": "If the motion is approved, the current Curator will be unassigned and the Bounty will return to the Funded state.",
-<<<<<<< HEAD
   "Info": "Info",
   "Initiate Voting": "Initiate Voting",
-=======
->>>>>>> origin2/master
   "Initiate voting": "Initiate voting",
   "Nay": "Nay",
   "Nay: {{count}}": "Nay: {{count}}",
@@ -83,6 +80,7 @@
   "This account will be used to create the unassign curator transaction.": "This account will be used to create the unassign curator transaction.",
   "This account will propose the bounty. Bond amount will be reserved on its balance.": "This account will propose the bounty. Bond amount will be reserved on its balance.",
   "This action will Slash the Curator.": "This action will Slash the Curator.",
+  "This action will create a Council motion to either approve or reject the Bounty.": "This action will create a Council motion to either approve or reject the Bounty.",
   "This action will create a Council motion to slash the Curator.": "This action will create a Council motion to slash the Curator.",
   "This action will create a Council motion to unassign the Curator.": "This action will create a Council motion to unassign the Curator.",
   "This amount will be reserved from origin account and returned on approval or slashed upon rejection.": "This amount will be reserved from origin account and returned on approval or slashed upon rejection.",

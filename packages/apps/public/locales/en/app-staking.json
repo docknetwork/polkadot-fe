@@ -252,12 +252,9 @@
   "max. delegators / pool": "max. delegators / pool",
   "min": "min",
   "min nominated": "min nominated",
-<<<<<<< HEAD
-  "new tokens emitted as a percentage of current supply": "new tokens emitted as a percentage of current supply",
-=======
   "min nominated / threshold": "min nominated / threshold",
   "my nodes": "my nodes",
->>>>>>> origin2/master
+  "new tokens emitted as a percentage of current supply": "new tokens emitted as a percentage of current supply",
   "next": "next",
   "nodes": "nodes",
   "nominated accounts": "nominated accounts",

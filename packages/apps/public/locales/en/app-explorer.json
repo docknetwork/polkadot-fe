@@ -8,13 +8,10 @@
   "Events": "Events",
   "Extrinsics": "Extrinsics",
   "Forks": "Forks",
-<<<<<<< HEAD
+  "Latency": "Latency",
   "Master Members": "Master Members",
   "No DIDs available": "No DIDs available",
   "No accounts available": "No accounts available",
-=======
-  "Latency": "Latency",
->>>>>>> origin2/master
   "No blocks available": "No blocks available",
   "No data available": "No data available",
   "No epochs available": "No epochs available",
@@ -22,23 +19,17 @@
   "No extrinsics available": "No extrinsics available",
   "No justifications available": "No justifications available",
   "No logs available": "No logs available",
-<<<<<<< HEAD
   "No pending extrinsics are in the queue": "No pending extrinsics are in the queue",
   "No transfers available": "No transfers available",
-=======
->>>>>>> origin2/master
   "Node info": "Node info",
   "Transfers": "Transfers",
   "Unable to retrieve the specified block details. {{error}}": "Unable to retrieve the specified block details. {{error}}",
-<<<<<<< HEAD
   "Validators": "Validators",
   "active accounts": "active accounts",
   "amount": "amount",
-  "balances": "balances",
-=======
   "average": "average",
   "avg": "avg",
->>>>>>> origin2/master
+  "balances": "balances",
   "best": "best",
   "best #": "best #",
   "best hash": "best hash",
@@ -59,17 +50,13 @@
   "era": "era",
   "event count": "event count",
   "events": "events",
-<<<<<<< HEAD
+  "events (last {{num}} blocks)": "events (last {{num}} blocks)",
   "expected ending slot": "expected ending slot",
+  "extrinsic count": "extrinsic count",
   "extrinsic index": "extrinsic index",
   "extrinsics": "extrinsics",
-  "extrinsics root": "extrinsics root",
-=======
-  "events (last {{num}} blocks)": "events (last {{num}} blocks)",
-  "extrinsic count": "extrinsic count",
-  "extrinsics": "extrinsics",
   "extrinsics (last {{num}} blocks)": "extrinsics (last {{num}} blocks)",
->>>>>>> origin2/master
+  "extrinsics root": "extrinsics root",
   "finalized": "finalized",
   "forks": "forks",
   "from": "from",
@@ -79,11 +66,8 @@
   "justifications": "justifications",
   "last": "last",
   "last block": "last block",
-<<<<<<< HEAD
-  "locked rewards": "locked rewards",
-=======
   "last events": "last events",
->>>>>>> origin2/master
+  "locked rewards": "locked rewards",
   "logs": "logs",
   "max": "max",
   "min": "min",
@@ -119,9 +103,9 @@
   "total issuance": "total issuance",
   "total locked rewards": "total locked rewards",
   "total peers": "total peers",
-<<<<<<< HEAD
   "total unlocked rewards": "total unlocked rewards",
   "transactions": "transactions",
+  "transfers": "transfers",
   "treasury balance": "treasury balance",
   "treasury rewards": "treasury rewards",
   "type": "type",
@@ -129,9 +113,6 @@
   "validator count": "validator count",
   "validator rewards": "validator rewards",
   "validators": "validators",
-=======
-  "transfers": "transfers",
   "weight": "weight",
->>>>>>> origin2/master
   "yes": "yes"
 }
