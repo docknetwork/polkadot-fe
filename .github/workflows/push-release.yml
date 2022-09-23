@@ -23,7 +23,6 @@ jobs:
       run: |
         yarn install --immutable | grep -v 'YN0013'
         yarn ${{ matrix.step }}
-
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:

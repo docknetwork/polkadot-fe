@@ -1,18 +1,18 @@
-// Copyright 2017-2021 @polkadot/app-bounties authors & contributors
+// Copyright 2017-2022 @polkadot/app-bounties authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SubmittableExtrinsic } from '@polkadot/api/types';
-
-import BN from 'bn.js';
+import type { SubmittableExtrinsicFunction } from '@polkadot/api/types';
+import type { BN } from '@polkadot/util';
 
 import { DeriveBounties } from '@polkadot/api-derive/types';
-import { useApi, useBestNumber, useCall } from '@polkadot/react-hooks';
+import { createNamedHook, useApi, useBestNumber, useCall } from '@polkadot/react-hooks';
 import { BalanceOf, BlockNumber, BountyIndex } from '@polkadot/types/interfaces';
+import { BN_ZERO } from '@polkadot/util';
 
 export type BountyApi = {
-  acceptCurator: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
-  approveBounty: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
-  awardBounty: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
+  acceptCurator: SubmittableExtrinsicFunction<'promise'>;
+  approveBounty: SubmittableExtrinsicFunction<'promise'>;
+  awardBounty: SubmittableExtrinsicFunction<'promise'>;
   bestNumber?: BlockNumber,
   bounties?: DeriveBounties,
   bountyCuratorDeposit: BN,
@@ -20,23 +20,23 @@ export type BountyApi = {
   bountyIndex?: BN,
   bountyUpdatePeriod?: BN,
   bountyValueMinimum: BN,
-  claimBounty: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
-  closeBounty: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
+  claimBounty: SubmittableExtrinsicFunction<'promise'>;
+  closeBounty: SubmittableExtrinsicFunction<'promise'>;
   dataDepositPerByte: BN,
-  extendBountyExpiry: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
+  extendBountyExpiry: SubmittableExtrinsicFunction<'promise'>;
   maximumReasonLength: number,
-  proposeBounty: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
-  proposeCurator: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
-  unassignCurator: ((...args: any[]) => SubmittableExtrinsic<'promise'>);
+  proposeBounty: SubmittableExtrinsicFunction<'promise'>;
+  proposeCurator: SubmittableExtrinsicFunction<'promise'>;
+  unassignCurator: SubmittableExtrinsicFunction<'promise'>;
 };
 
-export function useBounties (): BountyApi {
+function useBountiesImpl (): BountyApi {
   const { api } = useApi();
   const bounties = useCall<DeriveBounties>(api.derive.bounties.bounties);
   const bountyIndex = useCall<BountyIndex>((api.query.bounties || api.query.treasury).bountyCount);
   const bestNumber = useBestNumber();
   const constsBase = api.consts.bounties || api.consts.treasury;
-  const bountyCuratorDeposit = (constsBase.bountyCuratorDeposit as BalanceOf).toBn();
+  const bountyCuratorDeposit = (constsBase.bountyCuratorDeposit as BalanceOf || { toBn: () => BN_ZERO }).toBn();
   const bountyDepositBase = (constsBase.bountyDepositBase as BalanceOf).toBn();
   const bountyValueMinimum = (constsBase.bountyValueMinimum as BalanceOf).toBn();
   const maximumReasonLength = constsBase.maximumReasonLength.toNumber();
@@ -73,3 +73,5 @@ export function useBounties (): BountyApi {
     unassignCurator
   };
 }
+
+export const useBounties = createNamedHook('useBounties', useBountiesImpl);
