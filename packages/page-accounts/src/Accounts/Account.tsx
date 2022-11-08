@@ -54,6 +54,28 @@ interface DemocracyUnlockable {
   ids: BN[];
 }
 
+const BAL_OPTS_DEFAULT = {
+  available: false,
+  bonded: false,
+  locked: false,
+  redeemable: false,
+  reserved: false,
+  total: true,
+  unlocking: false,
+  vested: false
+};
+
+const BAL_OPTS_EXPANDED = {
+  available: true,
+  bonded: true,
+  locked: true,
+  redeemable: true,
+  reserved: true,
+  total: false,
+  unlocking: true,
+  vested: true
+};
+
 function calcVisible (filter: string, name: string, tags: string[]): boolean {
   if (filter.length === 0) {
     return true;
@@ -667,45 +689,29 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
               onClose={toggleUndelegate}
             />
           )}
-      </td>
-      <td className='address media--1400'>
-        {(meta.parentAddress as string) && (
-          <AddressMini value={meta.parentAddress} />
-        )}
-      </td>
-      {!hideExtra && (
-        <>
-          <td className='number'>
-            <CryptoType accountId={address} />
-          </td>
-
-          <td className='all'>
-            <div className='tags'>
-              <Tags value={tags} />
-            </div>
-          </td>
-        </>
-      )}
-      <td className='number media--1500'>
-        {balancesAll?.accountNonce.gt(BN_ZERO) && formatNumber(balancesAll.accountNonce)}
-      </td>
-      <td className='number'>
-        <AddressInfo
-          address={address}
-          withBalance
-          withBalanceToggle
-          withExtended={false}
-        />
-      </td>
-      {!hideExtra && (
-        <td className='button'>
-          {isFunction(api.api.tx.balances?.transfer) && (
-            <Button
-              icon='paper-plane'
-              label={t<string>('send')}
-              onClick={toggleTransfer}
+        </td>
+        <td className='number'>
+          <CryptoType accountId={address} />
+        </td>
+        <td className='number media--1500'>
+          {balancesAll?.accountNonce.gt(BN_ZERO) && formatNumber(balancesAll.accountNonce)}
+        </td>
+        <td className='number'>
+          <AddressInfo
+            address={address}
+            balancesAll={balancesAll}
+            withBalance={BAL_OPTS_DEFAULT}
+            withExtended={false}
+          />
+        </td>
+        <td className='fast-actions'>
+          <div className='fast-actions-row'>
+            <LinkExternal
+              className='ui--AddressCard-exporer-link media--1400'
+              data={address}
+              type='address'
             />
-          )}
+          </div>
           <Popup
             className={`theme--${theme}`}
             isOpen={isExpanded}
@@ -726,16 +732,18 @@ function Account ({ account: { address, meta }, className = '', delegation, filt
             </Menu>
           </Popup>
         </td>
-      )}
-      <td className='links media--1400'>
-        <LinkExternal
-          className='ui--AddressCard-exporer-link'
-          data={address}
-          isLogo
-          type='address'
-        />
-      </td>
-    </tr>
+        <td className='media--1500' />
+        <td />
+        <td>
+          <AddressInfo
+            address={address}
+            balancesAll={balancesAll}
+            withBalance={BAL_OPTS_EXPANDED}
+            withExtended={false}
+          />
+        </td>
+        <td colSpan={2} />
+      </tr>
     </>;
 }
 

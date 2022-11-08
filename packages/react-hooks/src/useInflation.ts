@@ -10,19 +10,22 @@ import { useEffect, useState } from 'react';
 import { getInflationParams } from '@polkadot/apps-config';
 import { BN_MILLION, BN_ZERO } from '@polkadot/util';
 
-import { createNamedHook } from './createNamedHook';
 import { useApi } from './useApi';
 import { useCall } from './useCall';
 
-const EMPTY: Inflation = { idealInterest: 0, idealStake: 0, inflation: 0, stakedFraction: 0, stakedReturn: 0 };
+const EMPTY: Inflation = {inflation: 0, stakedReturn: 0 };
 
 function calcInflation (api: ApiPromise, totalStaked: BN, totalIssuance: BN, numAuctions: BN): Inflation {
-  const { auctionAdjust, auctionMax, falloff, maxInflation, minInflation, idealStake } = getInflationParams(api);
+  const { stakeTarget, falloff, maxInflation, minInflation, idealStake } = getInflationParams(api);
   const stakedFraction = totalStaked.isZero() || totalIssuance.isZero()
     ? 0
     : totalStaked.mul(BN_MILLION).div(totalIssuance).toNumber() / BN_MILLION.toNumber();
-  const stakeTarget = idealStake - (Math.min(auctionMax, numAuctions.toNumber()) * auctionAdjust);
-  const idealInterest = maxInflation / stakeTarget;
+  // Ideal is less based on the actual auctions, see
+  // https://github.com/paritytech/polkadot/blob/816cb64ea16102c6c79f6be2a917d832d98df757/runtime/kusama/src/lib.rs#L531
+  // const idealStake = stakeTarget - (Math.min(auctionMax, numAuctions.toNumber()) * auctionAdjust);
+  const idealInterest = maxInflation / idealStake;
+  // inflation calculations, see
+  // https://github.com/paritytech/substrate/blob/0ba251c9388452c879bfcca425ada66f1f9bc802/frame/staking/reward-fn/src/lib.rs#L28-L54
   const inflation = 100 * (minInflation + (
     stakedFraction <= stakeTarget
       ? (stakedFraction * (idealInterest - (minInflation / stakeTarget)))
@@ -30,10 +33,10 @@ function calcInflation (api: ApiPromise, totalStaked: BN, totalIssuance: BN, num
   ));
 
   return {
-    idealInterest,
-    idealStake,
+    // idealInterest,
+    // idealStake,
     inflation,
-    stakedFraction,
+    // stakedFraction,
     stakedReturn: stakedFraction
       ? (inflation / stakedFraction)
       : 0

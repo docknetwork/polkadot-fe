@@ -12,6 +12,7 @@ import { withMulti, withObservable } from '@polkadot/react-api/hoc';
 import { keyring } from '@polkadot/ui-keyring';
 import { createOptionItem } from '@polkadot/ui-keyring/options/item';
 import { isNull, isUndefined } from '@polkadot/util';
+import { isAddress } from '@polkadot/util-crypto';
 
 import Dropdown from '../Dropdown';
 import Static from '../Static';
@@ -39,6 +40,7 @@ interface Props {
   type?: KeyringOption$Type;
   value?: string | Uint8Array | string[] | null;
   withEllipsis?: boolean;
+  withExclude?: boolean;
   withLabel?: boolean;
 }
 
@@ -168,7 +170,7 @@ class InputAddress extends React.PureComponent<Props, State> {
 
     const { value } = this.state;
     const actualValue = transformToAddress(
-      isDisabled || (defaultValue && this.hasValue(defaultValue))
+      isDisabled || (defaultValue && defaultValue !== '0x' && (this.hasValue(defaultValue) || type === 'allPlus'))
         ? defaultValue
         : undefined
     );
@@ -176,7 +178,9 @@ class InputAddress extends React.PureComponent<Props, State> {
       ? dedupe(options.map((o) => createItem(o)))
       : isDisabled && actualValue
         ? [createOption(actualValue)]
-        : this.getFiltered();
+        : actualValue
+          ? this.addActual(actualValue)
+          : this.getFiltered();
     const _defaultValue = (isMultiple || !isUndefined(value))
       ? undefined
       : actualValue;
@@ -215,6 +219,14 @@ class InputAddress extends React.PureComponent<Props, State> {
     );
   }
 
+  private addActual (actualValue: string): Option[] {
+    const base = this.getFiltered();
+
+    return this.hasValue(actualValue)
+      ? base
+      : base.concat(createOption(actualValue));
+  }
+
   private renderLabel = ({ value }: KeyringSectionOption): React.ReactNode => {
     if (!value) {
       return undefined;
@@ -238,11 +250,19 @@ class InputAddress extends React.PureComponent<Props, State> {
   }
 
   private getFiltered (): Option[] {
-    const { filter, optionsAll, type = DEFAULT_TYPE } = this.props;
+    const { filter, optionsAll, type = DEFAULT_TYPE, withExclude = false } = this.props;
 
     return !optionsAll
       ? []
-      : dedupe(optionsAll[type]).filter(({ value }) => !filter || (!!value && filter.includes(value)));
+      : dedupe(optionsAll[type]).filter(({ value }) =>
+        !filter || (
+          !!value && (
+            withExclude
+              ? !filter.includes(value)
+              : filter.includes(value)
+          )
+        )
+      );
   }
 
   private onChange = (address: string): void => {
@@ -251,7 +271,7 @@ class InputAddress extends React.PureComponent<Props, State> {
     !filter && setLastValue(type, address);
 
     onChange && onChange(
-      this.hasValue(address)
+      !!address && (this.hasValue(address) || (type === 'allPlus' && isAddress(address)))
         ? transformToAccountId(address)
         : null
     );
