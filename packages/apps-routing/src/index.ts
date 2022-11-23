@@ -34,7 +34,6 @@ import settings from './settings';
 import signing from './signing';
 import masterSubmission from './master-proposals'
 import anchor from './anchor'
-import tokenSwap from './token-swap'
 import society from './society';
 import staking from './staking';
 import storage from './storage';
@@ -80,7 +79,6 @@ export default function create (t: TFunction): Routes {
     extrinsics(t),
     masterSubmission(t),
     anchor(t),
-    tokenSwap(t),
     rpc(t),
     runtime(t),
     signing(t),

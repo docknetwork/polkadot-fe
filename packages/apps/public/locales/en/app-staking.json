@@ -333,6 +333,7 @@
   "total nodes": "total nodes",
   "total stake": "total stake",
   "total staked": "total staked",
+  "total validator rewards as a percentage of currently staked tokens, individual nominator rewards may vary depending on their validator's configuration": "total validator rewards as a percentage of currently staked tokens, individual nominator rewards may vary depending on their validator's configuration",
   "type of funds to bond": "type of funds to bond",
   "unapplied": "unapplied",
   "unbond amount": "unbond amount",

@@ -36,31 +36,6 @@ const definitions: OverrideBundleDefinition = {
         Address: 'MultiAddress',
         LookupSource: 'MultiAddress'
       }
-<<<<<<< HEAD:packages/apps-config/src/api/specVersioned/kulupu.ts
-=======
-    },
-    {
-      // enable pallet-lockdrop in runtime 17
-      minmax: [17, undefined],
-      types: {
-        CampaignIdentifier: '[u8; 4]'
-      }
-    },
-    {
-      // enable pallet-atomic-swap in runtime 24
-      minmax: [24, undefined],
-      types: {
-        HashedProof: '[u8; 32]',
-        PendingSwap: {
-          source: 'AccountId',
-          action: 'SwapAction',
-          endBlock: 'BlockNumber'
-        },
-        SwapAction: {
-          value: 'Balance'
-        }
-      }
->>>>>>> origin2/master:packages/apps-config/src/api/spec/kulupu.ts
     }
   ]
 };
