@@ -7,6 +7,7 @@ import type { ComponentMap, RawParam, RawParamOnChangeValue, RawParams } from '.
 import React, { useCallback } from 'react';
 
 import Param from './Param';
+import { CopyButton } from '@polkadot/react-components';
 
 interface Props {
   defaultValue: RawParam;
