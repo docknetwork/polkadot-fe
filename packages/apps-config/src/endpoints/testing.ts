@@ -15,12 +15,4 @@ export * from './testingRelayWestend';
 //   providers: The actual hosted secure websocket endpoint
 //
 // IMPORTANT: Alphabetical based on text
-export const testChains: EndpointOption[] = [
-  {
-    info: 'dock-testnet',
-    text: 'Dock PoS Testnet',
-    providers: {
-      'Dock Association': 'wss://knox-1.dock.io' // https://github.com/polkadot-js/apps/issues/6831
-    }
-  },
-];
+export const testChains: EndpointOption[] = [];
