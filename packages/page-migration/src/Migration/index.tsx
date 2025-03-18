@@ -13,8 +13,9 @@ function MigrationApp ({ className }): React.ReactElement {
     <div className={`staking--Overview ${className}`}>
       <MarkWarning
         className='warning centered'
-        content={t<string>('The DOCK -> CHEQD token migration has ended as of March 15th, 2025')}
-      />
+      >
+        The DOCK -> CHEQD token migration has ended as of March 15th, 2025. If you need assistance contact the cheqd team on <a href="https://t.me/cheqd" target="_blank">Telegram</a>
+      </MarkWarning>
     </div>
   );
 }
