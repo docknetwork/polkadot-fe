@@ -25,15 +25,15 @@ const App = () => (
       </Typography>
       <Typography variant="body1" paragraph>
         We encourage you to stay connected with the cheqd community:
+        <List>
+          <ListItem>
+            Website: <Link href='https://cheqd.io' target='_blank'>https://cheqd.io</Link>
+          </ListItem>
+          <ListItem>
+            Telegram: <Link href='https://t.me/cheqd' target='_blank'>https://t.me/cheqd</Link>
+          </ListItem>
+        </List>
       </Typography>
-      <List>
-        <ListItem>
-          <Link href='https://cheqd.io' target='_blank'>Website: https://cheqd.io</Link>
-        </ListItem>
-        <ListItem>
-          <Link href='https://t.me/cheqd' target='_blank'>Telegram: https://t.me/cheqd</Link>
-        </ListItem>
-      </List>
       <Typography variant="body1" paragraph>
         Thank you for your understanding and continued support.
         <br />
